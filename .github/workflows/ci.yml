@@ -103,8 +103,13 @@ jobs:
         uses: angular/dev-infra/github-actions/bazel/configure-remote@96a8277d21eb61a2370061717ffa8dee5668caa0
       - name: Install node modules
         run: yarn install --frozen-lockfile
-      - name: Run tests
-        run: yarn bazel test //packages/...
+        
+      - name: Run unit tests
+        uses: koenhagen/measure-energy-action@v0.33
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: yarn bazel test //packages/...
+          count: 1
 
   e2e:
     strategy:
